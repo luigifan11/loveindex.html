@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Nicolas ❤️</title>
+
+<style>
+body {
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  text-align: center;
+  font-family: Arial;
+  color: white;
+}
+
+h1 {
+  font-size: 40px;
+}
+
+img {
+  border-radius: 20px;
+  margin: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>For Nicolas ❤️</h1>
+
+<p>Since April 12, 2025…</p>
+
+<p id="counter"></p>
+
+<script>
+const startDate = new Date("2025-04-12");
+
+function updateCounter() {
+  const now = new Date();
+  const diff = now - startDate;
+
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+  document.getElementById("counter").innerHTML =
+    days + " days loving you ❤️";
+}
+
+setInterval(updateCounter, 1000);
+</script>
+
+<p>
+You are my favorite person, my safe place,  
+and the best thing that ever happened to me.  
+
+I love you ❤️
+</p>
+
+</body>
+</html>
