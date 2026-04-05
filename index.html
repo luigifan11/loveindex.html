@@ -1,57 +1,431 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-<title>Nicolas ❤️</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Para Mi Guapo ❤️</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-<style>
-body {
-  background: linear-gradient(135deg, #ff758c, #ff7eb3);
-  text-align: center;
-  font-family: Arial;
-  color: white;
-}
+    html {
+      scroll-behavior: smooth;
+    }
 
-h1 {
-  font-size: 40px;
-}
+    body {
+      font-family: Arial, sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(255, 170, 200, 0.35), transparent 35%),
+        linear-gradient(180deg, #ff5c8a 0%, #ff8fb1 35%, #ffc2d1 70%, #ffe5ec 100%);
+      color: white;
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
 
-img {
-  border-radius: 20px;
-  margin: 10px;
-}
-</style>
+    .hearts {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .heart {
+      position: absolute;
+      bottom: -30px;
+      font-size: 18px;
+      animation: floatUp linear forwards;
+      opacity: 0.85;
+      filter: drop-shadow(0 0 6px rgba(255,255,255,0.4));
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 0.9;
+      }
+      100% {
+        transform: translateY(-110vh) scale(1.5);
+        opacity: 0;
+      }
+    }
+
+    .enter-screen {
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(circle at center, rgba(255,255,255,0.12), transparent 40%),
+        linear-gradient(135deg, #ff4d88, #ff7aa8, #ffc2d1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      text-align: center;
+      padding: 24px;
+    }
+
+    .enter-screen h1 {
+      font-size: 2.7rem;
+      margin-bottom: 14px;
+      text-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    }
+
+    .enter-screen p {
+      font-size: 1.1rem;
+      max-width: 520px;
+      line-height: 1.7;
+      margin-bottom: 24px;
+      color: #fff6fa;
+    }
+
+    .enter-btn {
+      background: white;
+      color: #ff4d88;
+      border: none;
+      padding: 14px 28px;
+      font-size: 1rem;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.18);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .enter-btn:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 16px 32px rgba(0,0,0,0.2);
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 34px 18px 80px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero {
+      padding-top: 28px;
+      margin-bottom: 18px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.28);
+      backdrop-filter: blur(10px);
+      margin-bottom: 16px;
+      font-size: 0.95rem;
+      color: #fff6fa;
+    }
+
+    .hero h1 {
+      font-size: 3.1rem;
+      margin-bottom: 10px;
+      text-shadow: 0 3px 14px rgba(0,0,0,0.2);
+    }
+
+    .hero p {
+      font-size: 1.12rem;
+      line-height: 1.8;
+      color: #fff7fb;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255,255,255,0.24);
+      backdrop-filter: blur(12px);
+      border-radius: 26px;
+      padding: 28px;
+      margin-top: 28px;
+      box-shadow: 0 14px 34px rgba(0,0,0,0.13);
+    }
+
+    .section-title {
+      font-size: 1.7rem;
+      margin-bottom: 18px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.12);
+    }
+
+    .counter {
+      font-size: 1.3rem;
+      font-weight: bold;
+      line-height: 1.9;
+    }
+
+    .small-text {
+      font-size: 0.95rem;
+      color: #fff7fb;
+      margin-top: 12px;
+    }
+
+    .message {
+      font-size: 1.08rem;
+      line-height: 1.95;
+      white-space: pre-line;
+      color: #fff9fc;
+      text-align: center;
+    }
+
+    .love-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 12px;
+    }
+
+    .love-item {
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 22px;
+      padding: 20px;
+      min-height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1.7;
+      font-size: 1rem;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 16px;
+      margin-top: 12px;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 20px;
+      border: 3px solid rgba(255,255,255,0.38);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+      transition: transform 0.25s ease;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.02);
+    }
+
+    .button-row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .romantic-btn {
+      border: none;
+      border-radius: 999px;
+      padding: 13px 22px;
+      font-size: 0.98rem;
+      font-weight: bold;
+      cursor: pointer;
+      background: white;
+      color: #ff4d88;
+      box-shadow: 0 10px 22px rgba(0,0,0,0.14);
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .romantic-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .answer-box {
+      margin-top: 18px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 20px;
+      padding: 18px;
+      font-size: 1.02rem;
+      line-height: 1.8;
+      min-height: 70px;
+      color: #fff8fb;
+    }
+
+    .footer-love {
+      margin-top: 34px;
+      font-size: 1rem;
+      color: #fff6fa;
+      opacity: 0.95;
+    }
+
+    @media (max-width: 640px) {
+      .hero h1 {
+        font-size: 2.3rem;
+      }
+
+      .enter-screen h1 {
+        font-size: 2rem;
+      }
+
+      .gallery img {
+        height: 240px;
+      }
+
+      .card {
+        padding: 22px;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <div class="hearts" id="hearts"></div>
 
-<h1>For Nicolas ❤️</h1>
+  <div class="enter-screen" id="enterScreen">
+    <h1>Para Mi Guapo ❤️</h1>
+    <p>
+      Feliz Anniversario Amorcito Te Amo!
+    </p>
+    <button class="enter-btn" onclick="startSite()">Click to enter</button>
+  </div>
 
-<p>Since April 12, 2025…</p>
+  <audio id="bgMusic" loop>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
 
-<p id="counter"></p>
+  <div class="container">
+    <section class="hero">
+      <div class="hero-badge">12 de abril de 2026 ♡</div>
+      <h1>Feliz Anniversario, Nicolas ❤️</h1>
+      <p>Desde Abril 12, 2025… hasta para siempre.</p>
+    </section>
 
-<script>
-const startDate = new Date("2025-04-12");
+    <section class="card">
+      <h2 class="section-title">Nuestro tiempo juntos ⏳</h2>
+      <div class="counter" id="counter"></div>
+      <div class="small-text">y aun contando 💗</div>
+    </section>
 
-function updateCounter() {
-  const now = new Date();
-  const diff = now - startDate;
+    <section class="card">
+      <h2 class="section-title">Para ti, mi amor 💌</h2>
+      <div class="message">
+Nicolas,
 
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+Gracias por ser parte de mi vida, gracias por tu amour, gracias por tu tiempo,gracias por las risas que compartimos, y gracias por hacer que cada momento juntos se sienta divertido.
 
-  document.getElementById("counter").innerHTML =
-    days + " days loving you ❤️";
-}
+Eres mi persona favorita en todo el mundo, a la persona a quien corro cuando necesito que me consolen, eres la persona mas bella que e conocido y te amo muho babe.
 
-setInterval(updateCounter, 1000);
-</script>
+Amo como me miras.
+Amo lo feliz que me haces sentir.
+Te amo en los momentos buenos y en los malos, en los callados, y especialmente en los momentos donde te ves super atractivo y hot.
 
-<p>
-You are my favorite person, my safe place,  
-and the best thing that ever happened to me.  
+Estando contigo es de los mejores sentimientos de el mundo.
+Y este regalo es solo un recordatorio de cuanto significas para mi te amo Guapo.
 
-I love you ❤️
-</p>
+Feliz Aniversario, my love ❤️
+      </div>
+    </section>
 
+    <section class="card">
+      <h2 class="section-title">Cosas que amo sobre ti ✨</h2>
+      <div class="love-grid">
+        <div class="love-item">Tu sonrisa y lo lindo que te ves cuando estas feliz ❤️</div>
+        <div class="love-item">La forma en que me haces sentir segura y querida 💗</div>
+        <div class="love-item">Lo atractivo y hot que te ves sin si quiera intentarlo 😌</div>
+        <div class="love-item">Que contigo hasta los momentos simples se sienten especiales 💞</div>
+        <div class="love-item">Tus besos a traves de la pantalla, que algun dia se volveran reales 💘</div>
+        <div class="love-item">Que eres mi persona favorita en todo el mundo 💓</div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="section-title">Nuestras Memorias 📸</h2>
+      <div class="gallery">
+        <img src="photo1.jpg" alt="Memoria 1">
+        <img src="photo2.jpg" alt="Memoria 2">
+        <img src="photo3.jpg" alt="Memoria 3">
+        <img src="photo4.jpg" alt="Memoria 4">
+      </div>
+      <div class="small-text">Aqui van nuestras fotitos lindas juntos ♡</div>
+    </section>
+
+    <section class="card">
+      <h2 class="section-title">Unos botones solo para ti 💋</h2>
+      <div class="button-row">
+        <button class="romantic-btn" onclick="showAnswer('love')">Sabes cuanto te amo?</button>
+        <button class="romantic-btn" onclick="showAnswer('cute')">Que eres para mi?</button>
+        <button class="romantic-btn" onclick="showAnswer('hot')">Una cosa mas...</button>
+      </div>
+      <div class="answer-box" id="answerBox">
+        Toca un botón, guapo ❤️
+      </div>
+    </section>
+
+    <div class="footer-love">
+      Hecho con amor para Nicolas ♡
+    </div>
+  </div>
+
+  <script>
+    const startDate = new Date("2025-04-12T00:00:00");
+
+    function updateCounter() {
+      const now = new Date();
+      const diff = now - startDate;
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor(diff / (1000 * 60 * 60));
+      const minutes = Math.floor(diff / (1000 * 60));
+
+      document.getElementById("counter").innerHTML =
+        `${days} days together ❤️<br>${hours} hours loving you 💕<br>${minutes} minutes of us`;
+    }
+
+    updateCounter();
+    setInterval(updateCounter, 1000);
+
+    function startSite() {
+      document.getElementById("enterScreen").style.display = "none";
+      const music = document.getElementById("bgMusic");
+      music.play().catch(() => {});
+    }
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerHTML = Math.random() > 0.5 ? "❤" : "💖";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = (16 + Math.random() * 20) + "px";
+      heart.style.animationDuration = (4 + Math.random() * 4) + "s";
+      document.getElementById("hearts").appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 8000);
+    }
+
+    setInterval(createHeart, 500);
+
+    function showAnswer(type) {
+      const box = document.getElementById("answerBox");
+
+      if (type === "love") {
+        box.innerHTML = "Mas de lo que es possible decir o escribir. eres todo para mi te amo Pecoso ❤️";
+      }
+
+      if (type === "cute") {
+        box.innerHTML = "Mi persona favorita, mi lugar seguro, mi niño hermoso, y alguien que amo demasiado 💗";
+      }
+
+      if (type === "hot") {
+        box.innerHTML = "Ya sabes que esto no seria realmente si no escribo esto jajaj Me encantas tanto tanto tanto eres mi niño hermoso te amo y tambien amo mucho tus biceps y tu cuerpo delicioso😌🔥";
+      }
+    }
+  </script>
 </body>
 </html>
