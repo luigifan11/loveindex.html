@@ -249,6 +249,7 @@
       border: 3px solid rgba(255,255,255,0.38);
       box-shadow: 0 12px 24px rgba(0,0,0,0.15);
       transition: transform 0.25s ease;
+      cursor: pointer;
     }
 
     .gallery img:hover {
@@ -289,7 +290,8 @@
       font-size: 1.02rem;
       line-height: 1.8;
       min-height: 70px;
-      color: #fff8fb;
+      color: #ff4d88;
+      font-weight: bold;
     }
 
     .footer-love {
@@ -297,6 +299,28 @@
       font-size: 1rem;
       color: #fff6fa;
       opacity: 0.95;
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.82);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 10000;
+    }
+
+    .lightbox.show {
+      display: flex;
+    }
+
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 90vh;
+      border-radius: 20px;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.35);
     }
 
     @media (max-width: 640px) {
@@ -402,10 +426,10 @@ Feliz Aniversario, my love ❤️
     <section class="card">
       <h2 class="section-title">Nuestras Memorias 📸</h2>
       <div class="gallery">
-        <img src="photo1.jpg" alt="Memoria 1">
-        <img src="photo2.jpg" alt="Memoria 2">
-        <img src="photo3.jpg" alt="Memoria 3">
-        <img src="photo4.jpg" alt="Memoria 4">
+        <img src="photo1.jpg" alt="Memoria 1" onclick="openImage(this.src)">
+        <img src="photo2.jpg" alt="Memoria 2" onclick="openImage(this.src)">
+        <img src="photo3.jpg" alt="Memoria 3" onclick="openImage(this.src)">
+        <img src="photo4.jpg" alt="Memoria 4" onclick="openImage(this.src)">
       </div>
       <div class="small-text">Aqui van nuestras fotitos lindas juntos ♡</div>
     </section>
@@ -425,6 +449,10 @@ Feliz Aniversario, my love ❤️
     <div class="footer-love">
       Hecho con amor para Nicolas ♡
     </div>
+  </div>
+
+  <div class="lightbox" id="lightbox" onclick="closeImage(event)">
+    <img id="lightboxImg" src="" alt="Foto grande">
   </div>
 
   <script>
@@ -508,7 +536,18 @@ Feliz Aniversario, my love ❤️
       }
 
       if (type === "hot") {
-        box.innerHTML = "Ya sabes que esto no seria realmente si no escribo esto jajaj Me encantas tanto tanto tanto eres mi niño hermoso te amo y tambien amo mucho tus biceps y tu cuerpo delicioso😌🔥";
+        box.innerHTML = "Ya sabes que esto no seria realmente yo si no escribo esto jajaj Me encantas tanto tanto tanto eres mi niño hermoso te amo y tambien amo mucho tus biceps y tu cuerpo delicioso😌🔥";
+      }
+    }
+
+    function openImage(src) {
+      document.getElementById("lightboxImg").src = src;
+      document.getElementById("lightbox").classList.add("show");
+    }
+
+    function closeImage(event) {
+      if (event.target.id === "lightbox" || event.target.id === "lightboxImg") {
+        document.getElementById("lightbox").classList.remove("show");
       }
     }
   </script>
