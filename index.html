@@ -159,9 +159,44 @@
     }
 
     .counter {
-      font-size: 1.3rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 14px;
+      margin-top: 8px;
+    }
+
+    .counter-box {
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 20px;
+      padding: 18px 10px;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+      transform: translateY(0);
+      transition: transform 0.25s ease, background 0.25s ease;
+    }
+
+    .counter-box:hover {
+      transform: translateY(-2px);
+      background: rgba(255,255,255,0.18);
+    }
+
+    .counter-number {
+      font-size: 1.8rem;
       font-weight: bold;
-      line-height: 1.9;
+      line-height: 1.2;
+      display: block;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .counter-label {
+      font-size: 0.95rem;
+      margin-top: 6px;
+      color: #fff7fb;
+      display: block;
+    }
+
+    .counter-number.bump {
+      transform: scale(1.08);
     }
 
     .small-text {
@@ -280,6 +315,10 @@
       .card {
         padding: 22px;
       }
+
+      .counter-number {
+        font-size: 1.5rem;
+      }
     }
   </style>
 </head>
@@ -307,7 +346,24 @@
 
     <section class="card">
       <h2 class="section-title">Nuestro tiempo juntos ⏳</h2>
-      <div class="counter" id="counter"></div>
+      <div class="counter" id="counter">
+        <div class="counter-box">
+          <span class="counter-number" id="days">0</span>
+          <span class="counter-label">días</span>
+        </div>
+        <div class="counter-box">
+          <span class="counter-number" id="hours">0</span>
+          <span class="counter-label">horas</span>
+        </div>
+        <div class="counter-box">
+          <span class="counter-number" id="minutes">0</span>
+          <span class="counter-label">minutos</span>
+        </div>
+        <div class="counter-box">
+          <span class="counter-number" id="seconds">0</span>
+          <span class="counter-label">segundos</span>
+        </div>
+      </div>
       <div class="small-text">y aun contando 💗</div>
     </section>
 
@@ -374,16 +430,45 @@ Feliz Aniversario, my love ❤️
   <script>
     const startDate = new Date("2025-04-12T00:00:00");
 
+    let lastValues = {
+      days: null,
+      hours: null,
+      minutes: null,
+      seconds: null
+    };
+
+    function bumpIfChanged(id, newValue) {
+      const el = document.getElementById(id);
+      if (!el) return;
+
+      if (lastValues[id] !== newValue) {
+        el.textContent = newValue;
+        el.classList.remove("bump");
+        void el.offsetWidth;
+        el.classList.add("bump");
+        lastValues[id] = newValue;
+
+        setTimeout(() => {
+          el.classList.remove("bump");
+        }, 180);
+      }
+    }
+
     function updateCounter() {
       const now = new Date();
       const diff = now - startDate;
 
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor(diff / (1000 * 60 * 60));
-      const minutes = Math.floor(diff / (1000 * 60));
+      const totalSeconds = Math.max(0, Math.floor(diff / 1000));
 
-      document.getElementById("counter").innerHTML =
-        `${days} days together ❤️<br>${hours} hours loving you 💕<br>${minutes} minutes of us`;
+      const days = Math.floor(totalSeconds / (60 * 60 * 24));
+      const hours = Math.floor((totalSeconds % (60 * 60 * 24)) / (60 * 60));
+      const minutes = Math.floor((totalSeconds % (60 * 60)) / 60);
+      const seconds = totalSeconds % 60;
+
+      bumpIfChanged("days", days);
+      bumpIfChanged("hours", hours);
+      bumpIfChanged("minutes", minutes);
+      bumpIfChanged("seconds", seconds);
     }
 
     updateCounter();
